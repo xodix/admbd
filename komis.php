@@ -13,7 +13,7 @@ for ($i = 0; $i < count($res); $i++) {
 	$przebieg = $arr["przebieg"];
 	$silnik = $arr["silnik"];
 
-	echo "$model, rocznik: $rocznik, wartość: $wartosc, przebieg: $przebieg ";
+	echo "$model rocznik: $rocznik, wartość: $wartosc, przebieg: $przebieg ";
 
 	switch ($silnik) {
 		case 'B':
