@@ -8,3 +8,5 @@ $rok = $_POST["rok"];
 $conn = new Conn("dane");
 
 $conn->query("INSERT INTO filmy VALUES NULL");
+
+// test
