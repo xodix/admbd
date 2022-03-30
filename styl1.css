@@ -1,0 +1,65 @@
+body,
+html {
+  font-family: "Helvetica";
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: content-box;
+}
+
+.flex {
+  display: flex;
+}
+
+#lewo {
+  background: navy;
+  color: white;
+  width: 25%;
+  height: 700px;
+}
+
+#b1 {
+  background-color: royalblue;
+  height: 100px;
+  text-align: center;
+  width: 100%;
+}
+
+#b2 {
+  background-color: steelblue;
+  height: 300px;
+  width: calc(100% - 60px);
+}
+
+#b3 {
+  background-color: royalblue;
+  height: 300px;
+  text-align: center;
+  width: 100%;
+}
+
+footer {
+  background-color: steelblue;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  letter-spacing: 5px;
+  margin: 0;
+}
+
+form {
+  padding: 30px;
+  line-height: 3;
+}
+
+form:hover {
+  background: deepskyblue !important;
+}
+
+#prawo {
+  width: 75%;
+}
