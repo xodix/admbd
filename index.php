@@ -5,73 +5,47 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="./styl1.css">
-	<title>Document</title>
+	<title>Filmoteka</title>
 </head>
 
 <body>
-	<div class="flex">
-		<div id="lewo">
-			<nav>
-				<h3>Dostępne gatunki filmu</h3>
-				<ol>
-					<li>Sci-Fi</li>
-					<li>animacja</li>
-					<li>dramat</li>
-					<li>horror</li>
-					<li>komedia</li>
-				</ol>
-				<p>
-					<a href="kadr.jpg" download>Pobierz obraz</a>
-				</p>
-				<p>
-					<a href="repertuar-kin.pl" target="_blank">
-						Sprawdź repertuar kin
-					</a>
-				</p>
-			</nav>
-		</div>
-		<div id="prawo">
-			<h1 id="b1">FILMOTEKA</h1>
-			<form id="b2" action=" add.php" method="POST">
-				Tytuł <input type="text" required name="tytul" />
-				<br>
-				Gatunek Filmu:
-				<select name="gatunek">
-					<?php
-					require_once("conn.php");
+	<table style="border: 1px solid black">
+		<tr>
+			<th>Tytuł</th>
+			<th>Nazwisko reżysera</th>
+			<th>Nazwa Gatunku</th>
+			<th>Rok</th>
+			<th>Ocena</th>
+			<th>Działanie</th>
+		</tr>
+		<?php
 
-					$conn = new Conn("dane");
-					$arr = $conn->query("SELECT distinct `nazwa` from `gatunki`");
+		function print_td(string $elem)
+		{
+			echo "<td>$elem</td>";
+		}
 
+		require_once("conn.php");
+		$conn = new Conn("filmoteka");
+		$dane = $conn->query("SELECT filmy.id, filmy.tytul, filmy.rok, filmy.ocena, gatunki.nazwa, rezyserzy.nazwisko FROM filmy INNER JOIN gatunki ON filmy.gatunki_id=gatunki.id INNER JOIN rezyserzy ON filmy.rezyserzy_id=rezyserzy.id");
 
-					foreach ($arr as $key => $val) {
-						echo $key . "<br>" . $val;
-						$name = htmlentities($val["nazwa"]);
-						echo <<<END
-							<option>
-							$name
-							</option>
-						END;
-					}
-					?>
-				</select>
-				<br>
-				Rok prdukcji: <input required type="number" name="rok" min="1895">
-				<br>
-				Ocena: <input required type="number" step="any" name="ocena" min="0" max="6">
-				<br>
-				<button type="reset">CZYŚĆ</button>
-				<button type="submit">DODAJ</button>
-			</form>
-			<div id="b3">
-				<img src="./kadr.jpg" width="300" alt="zdjęcia filmowe">
-			</div>
-		</div>
-	</div>
-	<footer>
-		<p>Autor strony Bartłomiej Deska</p>
-	</footer>
+		for ($i = 0; $i < count($dane); $i++) {
+			$row = $dane[$i];
+			$id = $row['id'];
+
+			echo "<tr>";
+
+			print_td($row["tytul"]);
+			print_td($row["nazwisko"]);
+			print_td($row["nazwa"]);
+			print_td($row["rok"]);
+			print_td($row["ocena"]);
+			print_td("<a href=\"edytuj.php?id=$id\">edytuj</a>|<a href=\"usun.php$id\">usun</a>");
+
+			echo "</tr>";
+		}
+		?>
+	</table>
 </body>
 
 </html>
