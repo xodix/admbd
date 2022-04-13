@@ -8,15 +8,8 @@ $tytul = $_POST["tytul"];
 $rok = $_POST["rok"];
 $ocena = $_POST["ocena"];
 
-$query = "UPDATE `filmy`
-SET
-	`id`=%d,
-	`gatunki_id`=%d,
-	`rezyserzy_id`=%d,
-	`tytul`='%s',
-	`rok`=%d,
-	`ocena`=%d
-WHERE `id`=%d";
+$query = "UPDATE `filmy` SET `id`=%s,`gatunki_id`=%s,`rezyserzy_id`=%s,`tytul`='%s',`rok`=%s,`ocena`=%s WHERE `id`=%s;";
+
 
 $conn = new Conn("filmoteka");
 

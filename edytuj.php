@@ -41,7 +41,7 @@ if (isset($_GET["id"])) {
 		$rezyserzy = $conn->query("SELECT * FROM rezyserzy");
 		$film = $film[0];
 
-		echo "<input type='hidden' name='id' value='id'";
+		echo "<input type='hidden' name='id' value='$id'";
 		print_input("id", $film['id'], true);
 		echo '<label for="gatunek">gatunek</label><select name="gatunek" id="gatunek">';
 		foreach ($gatunki as $key => $val) {
