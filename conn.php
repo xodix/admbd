@@ -15,38 +15,44 @@ class Conn
 		$conn = new mysqli($this->host, $this->username, $this->password, $this->db);
 
 		if ($err = $conn->connect_error) {
-			$err = $conn->close();
-			die("Connection error: $err");
+			echo "Error connecting to database: " . $err;
+			exit();
+		}
+
+		if ($params) {
+			for ($i = 0; $i < count($params); $i++) {
+				$params[$i] = mysqli_escape_string($conn, htmlentities($params[$i]));
+			}
+
+			$query = sprintf($query, ...$params);
 		}
 
 		$conn->set_charset("utf8");
 
-		if ($params) {
-			$this->sanitize_params($query, $params, $conn);
-		}
+		$q = $conn->query($query);
 
-		$req = $conn->query($query);
-
-		if (!$req) {
-			$conn->close();
-			echo mysqli_error($conn);
+		if (!$q) {
+			echo "Query: " . mysqli_error($conn) . "<br><br>";
+			echo $query;
 			exit();
 		}
 
-		$res = $req->fetch_all(MYSQLI_ASSOC);
+		if (is_bool($q)) {
+			return [];
+		}
+
+		$res = $q->fetch_all(MYSQLI_ASSOC);
 
 		if ($res) {
+			$conn->close();
+
 			if (is_bool($res)) {
-				$conn->close();
 				return [];
 			}
 
-			$conn->close();
 			return $res;
 		} else {
-			$err = $conn->connect_error;
-			$err = $conn->close();
-			die("Error while making a query: $err");
+			return [];
 		}
 	}
 

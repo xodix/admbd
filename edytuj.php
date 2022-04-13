@@ -28,7 +28,7 @@ if (isset($_GET["id"])) {
 
 			echo <<<END
 				<label for="$key">$key:</label>
-				<input id="$key" value="$val" $dis>
+				<input id="$key" value="$val" name="$key" $dis>
 				<br>
 			END;
 		}
@@ -37,10 +37,22 @@ if (isset($_GET["id"])) {
 
 		$conn = new Conn("filmoteka");
 		$film = $conn->query("SELECT * FROM filmy WHERE `id`=%d", [$id]);
+		$gatunki = $conn->query("SELECT * FROM gatunki");
+		$rezyserzy = $conn->query("SELECT * FROM rezyserzy");
 		$film = $film[0];
 
+		echo "<input type='hidden' name='id' value='id'";
 		print_input("id", $film['id'], true);
-
+		echo '<label for="gatunek">gatunek</label><select name="gatunek" id="gatunek">';
+		foreach ($gatunki as $key => $val) {
+			echo '<option value="' . $val["id"] . '">' . $val["nazwa"] . '</option>';
+		}
+		echo "</select><br>";
+		echo '<label for="rezyser">rezyser</label><select name="rezyser" id="rezyser">';
+		foreach ($rezyserzy as $key => $val) {
+			echo '<option value="' . $val["id"] . '">' . $val["nazwisko"] . '</option>';
+		}
+		echo "</select><br>";
 		print_input("tytul", $film['tytul']);
 		print_input("rok", $film['rok']);
 		print_input("ocena", $film['ocena']);
