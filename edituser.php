@@ -23,4 +23,4 @@ $conn->query($query, [
 	$id
 ]);
 
-echo "Sukces!";
+header("Location: index.php");

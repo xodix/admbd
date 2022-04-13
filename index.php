@@ -40,7 +40,7 @@
 			print_td($row["nazwa"]);
 			print_td($row["rok"]);
 			print_td($row["ocena"]);
-			print_td("<a href=\"edytuj.php?id=$id\">edytuj</a>|<a href=\"usun.php$id\">usun</a>");
+			print_td("<a href=\"edytuj.php?id=$id\">edytuj</a>|<a href=\"usun.php?id=$id\">usun</a>");
 
 			echo "</tr>";
 		}
